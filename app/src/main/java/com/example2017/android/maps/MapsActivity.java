@@ -1,6 +1,8 @@
 package com.example2017.android.maps;
 
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -8,16 +10,15 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
-import com.google.android.gms.maps.StreetViewPanorama;
-import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MapsActivity extends FragmentActivity implements OnStreetViewPanoramaReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -26,28 +27,10 @@ public class MapsActivity extends FragmentActivity implements OnStreetViewPanora
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-       StreetViewPanoramaFragment streetViewPanoramaFragment=(StreetViewPanoramaFragment)getFragmentManager()
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
+        mapFragment.getMapAsync(this);
 
-
-
-
-
-
-
-    }
-
-    @Override
-    public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
-
-
-
-        streetViewPanorama.setPosition(new LatLng(-33.87365, 151.20689
-
-
-
-        ));
 
     }
 
@@ -63,22 +46,37 @@ public class MapsActivity extends FragmentActivity implements OnStreetViewPanora
      */
 
 
-
-
-
-/*
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(30.69227,31.140383);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("elsaqa mosque").snippet("home").icon(BitmapDescriptorFactory.fromResource(R.drawable.)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,12));
+        LatLng sydney = new LatLng(30.69227, 31.140383);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("elsaqa mosque").snippet("home"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12));
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setBuildingsEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
 
 
 
+        /*
+        // draw line between two points
+        Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(30.69227, 31.140383), new LatLng(30.692, 31.1403))
+                .width(5)
+                .color(Color.RED));
+*/
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -91,5 +89,4 @@ public class MapsActivity extends FragmentActivity implements OnStreetViewPanora
 
 
     }
-*/
 }
