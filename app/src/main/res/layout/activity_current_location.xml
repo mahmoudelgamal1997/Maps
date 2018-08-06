@@ -42,5 +42,16 @@
         android:layout_marginBottom="60dp"
         android:onClick="fused" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="work offline"
+        android:id="@+id/button4"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:onClick="offline"
+        />
+
 
 </RelativeLayout>

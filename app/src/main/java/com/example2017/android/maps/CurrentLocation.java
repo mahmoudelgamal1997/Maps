@@ -111,6 +111,11 @@ public class CurrentLocation extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void offline(View v){
+        Intent intent =new Intent(CurrentLocation.this,WorkOffline.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
